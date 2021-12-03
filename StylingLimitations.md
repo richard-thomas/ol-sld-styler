@@ -55,7 +55,7 @@ The support outlined below is as tested in QGIS 3.22.1 and SLDReader v0.2.12. (N
 
 - Point Symbolizers:
   - Raster Image Marker (aka "graphic fill" in SLD): QGIS-exported SLD includes just placeholder text "RasterMarker not implemented yet"
-    - **WORKAROUND**: hand modify QGIS-exported SLD file to add a PNG filename and the marker size/displacement fields used in the original QGIS map. See example [Notable features (PNG marker).sld](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/sld/Notable%20features%20(PNG%20marker).sld) file used as part of the [Fully-featured example](Examples.md#fully-featured-example).
+    - **WORKAROUND**: hand modify QGIS-exported SLD file to add a PNG filename and the marker size/displacement fields used in the original QGIS map. See example [Notable features (PNG marker).sld](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/sld/Notable%20features%20(PNG%20marker).sld) file used as part of the [Fully-featured example](Examples.md#fully-featured-example).
   - Ellipse/Filled/Font/Geometry Generator/Vector Field/Mask Markers: not exported to SLD
 - Line Symbolizers:
   - Symbol layer types:
@@ -63,11 +63,11 @@ The support outlined below is as tested in QGIS 3.22.1 and SLDReader v0.2.12. (N
     - Arrow/Geometry Generator/Hashed Line/Interpolated Line: not exported to SLD
   - Pattern offset (Dash offset): values not exported to SLD
   - Stroke style: predefined (but not custom) dash patterns are incorrectly not scaled by stroke width (QGIS bug)
-    - **WORKAROUND**: can be fixed in tweakFeatureTypeStyle() - see example _scaleLineSymbolizerDashArray()_ support function in [Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/full_mapconfig.js) file of [Fully-featured example](Examples.md#fully-featured-example)
+    - **WORKAROUND**: can be fixed in tweakFeatureTypeStyle() - see example _scaleLineSymbolizerDashArray()_ support function in [Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/full_mapconfig.js) file of [Fully-featured example](Examples.md#fully-featured-example)
 - Polygon Symbolizers:
   - Symbol layer types:
     - Raster Image Fill (aka "graphic fill" in SLD): QGIS-exported SLD includes just placeholder text "RasterFill not implemented yet"
-      - **WORKAROUND**: hand modify QGIS-exported SLD file to add a PNG filename and the marker size field used in the original QGIS map. See example [OS 1st edition (PNG fill).sld](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/sld/OS%201st%20edition%20(PNG%20fill).sld) file used as part of the [Fully-featured example](Examples.md#fully-featured-example).
+      - **WORKAROUND**: hand modify QGIS-exported SLD file to add a PNG filename and the marker size field used in the original QGIS map. See example [OS 1st edition (PNG fill).sld](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/sld/OS%201st%20edition%20(PNG%20fill).sld) file used as part of the [Fully-featured example](Examples.md#fully-featured-example).
     - Centroid Fill/Geometry Generator/Gradient Fill/Line Pattern Fill/Point Pattern Fill/Random Marker Fill/Shapeburst Fill: not exported to SLD
     - Outline types: Hashed/Interpolated Line: not exported to SLD
   - Fill style: (only "solid" supported)
@@ -76,14 +76,14 @@ The support outlined below is as tested in QGIS 3.22.1 and SLDReader v0.2.12. (N
 - Text Symbolizers (i.e. labels):
   - label placement has some issues with both displacement and type (i.e. anchor location within label)
   - layer Scale dependent visibility is not carried across to label (QGIS bug)
-    - **WORKAROUND**: can be manually fixed in tweakFeatureTypeStyle() - see 'Contour lines (10m) - OS Terrain 50' handling in [Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/full_mapconfig.js) file of [Fully-featured example](Examples.md#fully-featured-example)
+    - **WORKAROUND**: can be manually fixed in tweakFeatureTypeStyle() - see 'Contour lines (10m) - OS Terrain 50' handling in [Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/full_mapconfig.js) file of [Fully-featured example](Examples.md#fully-featured-example)
 - General:
   - always converts width values to pixels:
     - = mm * 3.78 (QGIS assumes pixel density of 96 DPI), so 1px = 0.264mm
     - = inches * 96, so 1px = 0.0104 inches
     - = points * 1.33 (72 points per inch), so 1px = 0.75 points
     - ("map units" or "metres at scale" conversion not supported - just output as pixels)
-      - **WORKAROUND**: can implement map units / metres at scale with tweakOlStyle() - see 'Probable path (10m nominal width)' handling in [Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/full_mapconfig.js) file of [Fully-featured example](Examples.md#fully-featured-example)
+      - **WORKAROUND**: can implement map units / metres at scale with tweakOlStyle() - see 'Probable path (10m nominal width)' handling in [Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/full_mapconfig.js) file of [Fully-featured example](Examples.md#fully-featured-example)
   - layer opacity cannot be encoded in SLD
     - **WORKAROUND**: set opacity as part of individual colour values
 

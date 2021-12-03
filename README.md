@@ -137,7 +137,7 @@ The JavaScript module has 5 exported functions which are described in the separa
 
 Use QGIS as a primary source for layer styling and OGC GeoPackage generation:
 
-- You can view in QGIS the project file that can be used to re-generate the GeoPackages for all the ol-sld-styler [Examples](Examples.md) (file [ol-sld-styler example.qgz](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/ol-sld-styler%20example.qgz)). Note that this is a version of the original file that has had its data sources redirected to the GeoPackages that were output by the original.
+- You can view in QGIS the project file that can be used to re-generate the GeoPackages for all the ol-sld-styler [Examples](Examples.md) (file [ol-sld-styler example.qgz](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/ol-sld-styler%20example.qgz)). Note that this is a version of the original file that has had its data sources redirected to the GeoPackages that were output by the original.
 - Before choosing your own QGIS layer styling, consider ol-sld-styler [styling limitations](#styling-limitations).
 - Within QGIS, use `Processing Toolbox > Package Layers` and select `Save layer styles into package` to generate an OGC GeoPackage which includes a table _layer_styles_ which contains the SLD information.
 - Be aware that if you have layers that use the same source data tables, then `Package Layers` will repeatedly write out all the data for each of these layers.
