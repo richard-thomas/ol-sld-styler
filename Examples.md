@@ -31,9 +31,9 @@ python -m http.server
 Loads vector tables and associated QGIS "layer_styles" SLD XML strings from an OGC GeoPackage and render all tables as styled layers on an OpenLayers map. Displays details of package contents.
 
 [web page](https://richard-thomas.github.io/ol-sld-styler/examples/dist/basic_example.html) (sources:
-[HTML](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/basic_example.html),
-[JavaScript](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/src/basic_example.js),
-[Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/basic_mapconfig.js))
+[HTML](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/basic_example.html),
+[JavaScript](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/src/basic_example.js),
+[Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/basic_mapconfig.js))
 
 Features:
 
@@ -55,9 +55,9 @@ Features:
 Additionally include styling data read from separate SLD file(s).
 
 [web page](https://richard-thomas.github.io/ol-sld-styler/examples/dist/sld_files_example.html) (sources:
-[HTML](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/sld_files_example.html),
-[JavaScript](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/src/sld_files_example.js),
-[Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/sld_files_mapconfig.js))
+[HTML](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/sld_files_example.html),
+[JavaScript](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/src/sld_files_example.js),
+[Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/sld_files_mapconfig.js))
 
 Additional features:
 
@@ -73,9 +73,9 @@ Additional features:
 Generate a map legend (with show/hide toggle).
 
 [web page](https://richard-thomas.github.io/ol-sld-styler/examples/dist/legend_example.html) (sources:
-[HTML](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/legend_example.html),
-[JavaScript](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/src/legend_example.js),
-[Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/legend_mapconfig.js))
+[HTML](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/legend_example.html),
+[JavaScript](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/src/legend_example.js),
+[Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/legend_mapconfig.js))
 
 Additional features:
 
@@ -95,9 +95,9 @@ Additional features:
 Embed symbology in a layer selector created by third party ol-layerswitcher NPM module.
 
 [web page](https://richard-thomas.github.io/ol-sld-styler/examples/dist/layersw_example.html) (sources:
-[HTML](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/layersw_example.html),
-[JavaScript](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/src/layersw_example.js),
-[Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/layersw_mapconfig.js))
+[HTML](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/layersw_example.html),
+[JavaScript](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/src/layersw_example.js),
+[Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/layersw_mapconfig.js))
 
 Additional features:
 
@@ -117,9 +117,9 @@ Additional features:
 Style OpenLayers vector layers, embed symbology in a layer selector, create a map legend, plus many extras required for a typical web map incorporating multiple data and SLD styling sources.
 
 [web page](https://richard-thomas.github.io/ol-sld-styler/examples/dist/full_example.html) (sources:
-[HTML](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/full_example.html),
-[JavaScript](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/src/full_example.js),
-[Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/full_mapconfig.js))
+[HTML](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/full_example.html),
+[JavaScript](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/src/full_example.js),
+[Map Config](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/full_mapconfig.js))
 
 Additional features (most are example support code, rather than ol-sld-styler features):
 
@@ -137,8 +137,8 @@ Additional features (most are example support code, rather than ol-sld-styler fe
   - using `olLayerOptions` property to define standard OpenLayers properties that are passed to ol_layer_Vector()
   - including standard ol-layerswitcher `fold` property to collapse layer switcher groups at start-up
   - including `popupAttr` property reserved for limiting the features properties shown in example popups code (and defining how they are labelled)
-- [Notable features (PNG marker).sld](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/sld/Notable%20features%20(PNG%20marker).sld): example workaround for QGIS raster (PNG) point marker export limitation - a manual edit of QGIS-exported SLD file to specify PNG filename and marker displacement
-- [OS 1st edition (PNG fill).sld](https://github.com/richard-thomas/ol-sld-styler/tree/master/examples/dist/sld/OS%201st%20edition%20(PNG%20fill).sld): example workaround for QGIS raster (PNG) polygon fill export limitation - a manual edit of QGIS-exported SLD file to specify PNG filename and marker size
+- [Notable features (PNG marker).sld](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/sld/Notable%20features%20(PNG%20marker).sld): example workaround for QGIS raster (PNG) point marker export limitation - a manual edit of QGIS-exported SLD file to specify PNG filename and marker displacement
+- [OS 1st edition (PNG fill).sld](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/sld/OS%201st%20edition%20(PNG%20fill).sld): example workaround for QGIS raster (PNG) polygon fill export limitation - a manual edit of QGIS-exported SLD file to specify PNG filename and marker size
 - baselayers_DSC.js: base layers split off into a separate module
 - OpenLayers base layer attribution
 - ol_control_ScaleLine(): OpenLayers scale line distance indicator
