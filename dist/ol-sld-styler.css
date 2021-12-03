@@ -1,0 +1,194 @@
+/* ---- Layer Switcher with symbols---- */
+
+/* Tweaks to existing ol-layerSwitcher... */
+
+/* Ensure layer switcher panel will be contained by the map */
+.layer-switcher {
+    top: 0.5em;
+}
+.layer-switcher.shown {
+    padding-bottom: 0;
+    z-index: 3;
+    max-width: 350px;
+    max-height: calc(100% - 4.5em);
+    overflow-y: auto;
+}
+.layer-switcher.shown.layer-switcher-activation-mode-click > button {
+    position: fixed;
+    right: 0.5em;
+    left: auto;
+    border-left: 0;
+    opacity: 0.8;
+}
+
+/* Additions to ol-layerswitcher for ol-sld-styler... */
+
+/* "(Loading...)" text placeholder */
+.loading {
+    color: rgb(0, 183, 255);
+}
+.loading::after {
+    content: '(Loading..) ';
+}
+/* "(No Data)" error message */
+.no-layer-data {
+    color: red;
+}
+.no-layer-data::after {
+    content: '(No Data!) ';
+}
+/* "(No Features)" error message */
+.no-features {
+    color: red;
+}
+.no-features::after {
+    content: '(No Features!) ';
+}
+/* "(Style missing)" error message */
+.style-missing {
+    color: rgb(195, 0, 255);
+}
+.style-missing::after {
+    content: '(Style Missing!) ';
+}
+.layer-switcher li {
+    clear: left;
+    margin-top: 0.1em;
+}
+.layer-switcher li label {
+    display: block;
+    padding-right: 0;
+}
+.layer-switcher .mock-symbol-canvas {
+    width: 1px;
+    height: 1px;
+}
+
+.layer-switcher .label-multi-symbol-layer {
+    padding-left: 3.7em;
+}
+
+.layer-switcher .symbol-canvas {
+    margin-left: 2.7em;
+    margin-right: 0.3em;
+    float: left;
+}
+
+/* Symbology hide/show icon adapted from ol-layerswitcher group toggle */
+.layer-switcher .group button {
+    width: 16px;
+    height: 16px;
+    background-color: white;
+}
+.layer-switcher li input {
+    left: 16px;
+}
+.layer-switcher button.symbology-toggle {
+    display: inline-block;
+    position: absolute;
+    float: none;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    margin-left: 2.4em;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAW0lEQVR4nGNgGAWMyBwXFxcGBgaGeii3EU0tXHzPnj1wQRYsihqQ+I0ExDEMQAYNONgoAN0AmMkNaDSyQSheY8JiaCMOGzE04zIAmyFYNTMw4A+DRhzsUUBtAADw4BCeIZkGdwAAAABJRU5ErkJggg==);
+    background-position: center 2px;
+    background-color: white;
+    -webkit-transition: none;
+    -ms-transition: none;
+    transition: none;
+}
+.layer-switcher .symbology-toggle.symbology-opener {
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -webkit-transition: none;
+    -ms-transition: none;
+    transition: none;
+}
+.layer-switcher .ul-multi-symbol li {
+    margin-top: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.layer-switcher .li-single-symbol {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.layer-switcher .li-single-symbol label {
+    padding-left: 0;
+}
+
+/* Symbol hidden because layer symbology has been collapsed */
+.symbology-collapsed {
+    display: none;
+}
+.layer-switcher .not-in-range {
+    font-style: italic;
+    color: #a0a0a0;
+}
+
+/* ---- Generated Map Legend ---- */
+
+.legend-table {
+    min-width: 1.5em;
+    min-height: 1.5em;
+    margin: 0 0 2px;
+    padding: 0;
+    list-style: none;
+    display: inline-block;
+}
+.legend-row-group > span {
+    text-decoration: underline;
+}
+
+/* Indentation for each extra level of grouping */
+.legend-table ul {
+    padding-inline-start: 0.5em;
+}
+
+.legend-table li {
+    position: relative;
+    margin-top: 0.1em;
+    list-style: none;
+    clear: left;
+}
+.legend-table .ul-multi-symbol li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 0;
+}
+.legend-table .label-single-symbol {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.legend-table .label-multi-symbol-layer > span,
+.legend-table .legend-row-group > span {
+    padding-left: 0;
+}
+.legend-table .symbol-canvas {
+    margin-left: 2.7em;
+    margin-right: 0.3em;
+    float: left;
+}
+.legend-table .label-single-symbol .symbol-canvas {
+    margin-left: 0;
+}
+.legend-table .ul-multi-symbol .symbol-canvas {
+    margin-left: 1.5em;
+}
+
+/* Layer or group with visibility switched off */
+.legend-table .switched-off {
+    /* TBD: add easing? */
+    display: none;
+}
+
+/* Layer or group not visible as not in zoom range or no children visible */
+.legend-table .not-in-range, .no-children-visible {
+    display: none;
+}

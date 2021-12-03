@@ -1,0 +1,208 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    font-size: small;
+}
+th, td {
+    vertical-align: top;
+    text-align: left;
+}
+
+#map {
+    background-color: #f8f8f8;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.ol-attribution {
+    bottom: 0;
+}
+
+.ol-control button {
+    background-color: #f8f8f8;
+    color: #000000;
+}
+.ol-control button:hover, .ol-control button:focus {
+    background-color: #f8f8f8;
+    outline: none;
+}
+.ol-zoom, .geolocate-control, .legend-toggle, .gcd-gl-control .ol-control {
+    background-color: rgba(255,255,255,.4);
+}
+
+/* "Align North" button (only appears when map is rotated) */
+.ol-rotate {
+    left: 0.5em;
+    right: auto;
+    top: 5.0em;
+}
+.ol-scale-line {
+    left: auto;
+    right: 4px;
+    bottom: 27px;
+    z-index: 3;
+    background: rgba(230,230,230,0.5);
+}
+.ol-scale-line-inner {
+    border: 2px solid black;
+    border-top: none;
+    color: black;
+    font-weight: bold;
+}
+
+/* Icon position for legend opener/closer */
+.legend-toggle {
+    bottom: 0;
+    left: 0.5em;
+}
+.legend-box.switched-off {
+    display: none;
+}
+
+/* Map Legend Container */
+.legend-box {
+    position: absolute;
+    bottom: 0;
+    left: 2.7em;
+    padding: 2px;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    margin-left: 4px;
+    border-radius: 4px;
+    max-height: 99%;
+    max-width: calc(min(100% - 2.5em - 58px, 300px));
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: rgba(241, 241, 241, 0.9);
+    z-index: 2;
+    user-select: none;
+    pointer-events: all;
+}
+.legend-box:hover {
+    background-color: rgba(241, 241, 241, 0.9);
+}
+.legend-title {
+    padding: 0.3em;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Selected Feature Attributes Popup
+   (CSS mainly from OpenLayers examples) */
+.ol-overlaycontainer {
+    pointer-events: none;
+ }
+.ol-popup {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    bottom: 50px;
+    left: -50px;
+    min-width: 280px;
+  }
+  .ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+  .ol-popup:after {
+    border-top-color: white;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+  }
+  .ol-popup:before {
+    border-top-color: #cccccc;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+  }
+  .ol-popup-closer {
+    text-decoration: none;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    pointer-events: all;
+  }
+  .ol-popup-closer:after {
+    content: "✖";
+  }
+
+/* Popup contents (table of feature attributes) */
+.popup-table {
+    width: 100%;
+/*    border-collapse: collapse; */
+}
+.popup-table-title {
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+.popup-table tr:nth-child(odd) {
+        background-color: #cccccc;
+}
+.popup-table tr:nth-child(even) {
+    background-color: #eeeeee;
+}
+.popup-table td {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.ol-control.buttonActive {
+    background-color: #70f370;
+}
+
+/* "Pan to my location" button */
+.geolocate-control {
+    top: 7.8em;
+    left: .5em;
+}
+
+/* "Measure Distance" control */
+.measure-control {
+    top: 10.6em;
+    left: .5em;
+}
+.tooltip {
+    position: relative;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    color: white;
+    padding: 4px 8px;
+    opacity: 0.7;
+    white-space: nowrap;
+}
+.tooltip-measure {
+    opacity: 1;
+    font-weight: bold;
+}
+.tooltip-static {
+    background-color: #ffcc33;
+    color: black;
+    border: 1px solid white;
+}
+.tooltip-measure:before,
+.tooltip-static:before {
+    border-top: 6px solid rgba(0, 0, 0, 0.5);
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    margin-left: -7px;
+    left: 50%;
+}
+.tooltip-static:before {
+    border-top-color: #ffcc33;
+}
