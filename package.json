@@ -1,6 +1,6 @@
 {
   "name": "ol-sld-styler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Style OpenLayers vector layers using SLD data",
   "main": "dist/ol-sld-styler.js",
   "scripts": {
