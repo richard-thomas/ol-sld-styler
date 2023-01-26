@@ -91,7 +91,7 @@ The support outlined below is as tested in QGIS 3.22.1 and SLDReader v0.2.12. (N
 
 - Marker Line: (unsuported other than for "circle")
 - Point symbolizer external graphic displacement ignored
-  - **WORKAROUND**: can use tweakOlStyle() to modify anchor in OpenLayers - see setIconAnchorFromDisplacement() support function in example
+  - **WORKAROUND**: can use tweakOlStyle() to modify displacement in OpenLayers - see setIconDisplacement() support function in example
 - Parameterized SVGs are not supported: when used in QGIS there is however also a "fallback" rule exported that has no parameters. Hence for example, parameterized colouring will be lost (only colouring hard-coded within the SVG will be used). However, the colour of the fill applied as a background in QGIS will tint the black line drawing.
 - Polygon graphic fill of "well known shapes" (e.g. hatching)
   - although embedded in the SLD by QGIS this is not defined in the SLD specification. In sldreader it would require canvasPattern generation for each type (e.g. "slash", "horline"). This would not be simple - further details here:

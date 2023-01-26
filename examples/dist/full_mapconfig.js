@@ -286,10 +286,10 @@ var mapConfig = {
             switch (styleName) {
                 case 'Notable features (SVG Marker)':
                 case 'Notable features (PNG marker)':
-                    // Set anchor points of external graphic and its label from
-                    // SLD values exported by QGIS (currently ignored by sldreader)
-                    setIconAnchorFromDisplacement(
-                        featureTypeStyle.rules[0].pointsymbolizer.graphic,
+                    // Set Point Symbolizer displacement from SLD values
+                    // exported by QGIS (currently ignored by sldreader)
+                    setIconDisplacement(
+                        featureTypeStyle.rules[0].pointsymbolizer.graphic.displacement,
                         olStyle[0].getImage());
                     break;
 
@@ -355,28 +355,29 @@ var mapConfig = {
             return olStyle;
 
             /**
-             * Set anchor point of external graphic from SLD displacement values
+             * Set Point Symbolizer displacement from SLD displacement values
              * (as exported by QGIS) but currently ignored by sldReader
-             * @param {object} ftsGraphic - Feature Type Style rule
-             *      pointsymbolizer.graphic object
+             * (Uses new setDisplacement() method introduced in OL 6.10.0)
+             * @param {object} displacement - Feature Type Style rule
+             *      pointsymbolizer.graphic.displacement object
              * @param {object} olStyleIcon - OpenLayers Style Icon Image object
              */
-            function setIconAnchorFromDisplacement(ftsGraphic, olStyleIcon) {
-                // Only define anchor once
-                if (olStyleIcon.anchorDefined) {
+             function setIconDisplacement(displacement, olStyleIcon) {
+                // Only define displacement once
+                if (olStyleIcon.displacementDefined) {
                     return;
                 }
-                // setAnchor() method only exists after external graphic loaded
-                if (typeof olStyleIcon.setAnchor === 'function') {
-                    // TBD: if icon is not square, offsetX denominator may be wrong,
-                    //      but getAnchor() could be used to determine aspect ratio.
-                    var offsetX = ftsGraphic.displacement.displacementx /
-                        ftsGraphic.size;
-                    var offsetY = ftsGraphic.displacement.displacementy /
-                        ftsGraphic.size;
-                    olStyleIcon.setAnchor([0.5 - offsetX, 0.5 - offsetY]);
-                    olStyleIcon.anchorDefined = true;
-                }
+                // Unlike SLD/QGIS/GeoServer, OpenLayers applies displacement
+                // before scaling, so have to factor in image scale.
+                // Note that QGIS/GeoServer define Point Symbolizer Y
+                // displacement as downwards positive, so we negate it here.
+                // (It was not defined in SLD 1.0.0 specification, though
+                //  SLD SE 1.1.0 unfortunately defined it as upwards positive.)
+                var scale = olStyleIcon.getScale();
+                var olDispX = Number(displacement.displacementx) / scale;
+                var olDispY = -Number(displacement.displacementy) / scale;
+                olStyleIcon.setDisplacement([olDispX, olDispY]);
+                olStyleIcon.displacementDefined = true;
             }
         }
     }

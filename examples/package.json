@@ -28,10 +28,10 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
-    "ol": "^6.7.0",
-    "ol-sld-styler": "^1.0.0",
+    "ol": "^6.10.0",
     "ol-layerswitcher": "^3.8.3",
     "ol-load-geopackage": "^1.0.1",
+    "ol-sld-styler": "^1.0.0",
     "proj4": "^2.7.5"
   }
 }

@@ -17,7 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@nieuwlandgeo/sldreader": "^0.2.12",
-    "ol": "^6.7.0"
+    "ol": "^6.10.0"
   },
   "repository": {
     "type": "git",

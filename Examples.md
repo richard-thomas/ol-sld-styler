@@ -48,7 +48,7 @@ Features:
   - `tweakFeatureTypeStyle()`: modify "featureTypeStyle" extracted from  SLD style information by sldReader with an example function:
     - scaleLineSymbolizerDashArray(): workaround for QGIS bug when using predefined (not custom) dash patterns
   - `tweakOlStyle()`: modify generated olStyle definitions using an example function:
-    - setIconAnchorFromDisplacement(): workaround for QGIS/sldreader limitation in setting anchor point of external graphic from SLD displacement values
+    - setIconDisplacement(): workaround for QGIS/sldreader limitation in setting Point Symbolizer displacement of external graphic from SLD displacement values
 
 ## SLD File Load example
 
