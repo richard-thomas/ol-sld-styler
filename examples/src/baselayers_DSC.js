@@ -28,21 +28,6 @@ export default function (hideAtStartup, foldAtStartup) {
         source: new ol_source_OSM()
     });
 
-    const lyrCompositeDTM1mHillshade = new ol_layer_Tile({
-        source: new ol_source_TileWMS(({
-            url: 'https://environment.data.gov.uk/spatialdata/lidar-composite-digital-surface-model-dtm-1m/wms',
-            attributions: '&copy; Environment Agency copyright and/or database right 2019. ' +
-                'All rights reserved. ' +
-                '<a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"' +
-                ' target="_blank" title="Open Government Licence">OGL</a>',
-            params: {
-                "LAYERS": "LIDAR_Composite_DTM_1m",
-                "TILED": "true",
-                "VERSION": "1.3.0"},
-            })),
-        title: 'DTM Hillshade (1m resolution, 2017)'
-    });
-
     const lyrCompositeDTM1mHillshade2020 = new ol_layer_Tile({
         source: new ol_source_TileWMS(({
             url: 'https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m-2020/wms',
@@ -58,27 +43,25 @@ export default function (hideAtStartup, foldAtStartup) {
         title: 'DTM Hillshade (1m resolution, 2020)'
     });
 
-    const lyrCompositeDSM1mHillshade = new ol_layer_Tile({
+    const lyrCompositeDSM1mHillshade2020 = new ol_layer_Tile({
         source: new ol_source_TileWMS(({
-            url: 'https://environment.data.gov.uk/spatialdata/lidar-composite-digital-surface-model-dsm-1m/wms',
-            attributions: '&copy; Environment Agency copyright and/or database right 2019. ' +
+            url: 'https://environment.data.gov.uk/spatialdata/lidar-composite-digital-surface-model-DSM-1m-2020/wms',
+            attributions: '&copy; Environment Agency copyright and/or database right 2020. ' +
                 'All rights reserved. ' +
                 '<a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"' +
                 ' target="_blank" title="Open Government Licence">OGL</a>',
             params: {
-                "LAYERS": "LIDAR_Composite_DSM_1m",
+                "LAYERS": "1",
                 "TILED": "true",
-                "VERSION": "1.3.0"
-            },
-        })),
-        title: 'DSM Hillshade (1m resolution, 2017)'
+                "VERSION": "1.3.0"},
+            })),
+        title: 'DSM Hillshade (1m resolution, 2020)'
     });
 
     // Layer Group: 'Environment Agency LiDAR'
     const layersEnvironmentAgencyLiDAR = [
         lyrCompositeDTM1mHillshade2020,
-        lyrCompositeDTM1mHillshade,
-        lyrCompositeDSM1mHillshade];
+        lyrCompositeDSM1mHillshade2020];
     const group_EnvironmentAgencyLiDAR = new ol_layer_Group({
         layers: layersEnvironmentAgencyLiDAR,
         'fold': 'open',

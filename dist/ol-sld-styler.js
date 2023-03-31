@@ -189,6 +189,18 @@ function showLayerSwitcherSymbols(map, LayerSwitcher) {
         }
     };
 
+    // Put a map-specific "name" value into base layers to allow default radio
+    // button operation of only selecting 1 base layer at a time
+    const mapElem = map.getTargetElement();
+    const baseLyrGroups = mapElem
+        .getElementsByClassName("layer-switcher-base-group");
+        for (const baseLyrGroup of baseLyrGroups) {
+        const baseLyrInputs = baseLyrGroup.getElementsByTagName("input");
+        for (const baseLyrInput of baseLyrInputs) {
+            baseLyrInput.name = mapElem.getAttribute('id') + "-base";
+        }
+    }
+
     // Add symbology icon(s) to each layer
     addLayerSwitcherSymbols(map, dataLayerDefinitions);
 }

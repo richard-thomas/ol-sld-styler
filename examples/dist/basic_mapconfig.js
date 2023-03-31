@@ -140,15 +140,12 @@ var mapConfig = {
                 if (olStyleIcon.displacementDefined) {
                     return;
                 }
-                // Unlike SLD/QGIS/GeoServer, OpenLayers applies displacement
-                // before scaling, so have to factor in image scale.
                 // Note that QGIS/GeoServer define Point Symbolizer Y
                 // displacement as downwards positive, so we negate it here.
                 // (It was not defined in SLD 1.0.0 specification, though
                 //  SLD SE 1.1.0 unfortunately defined it as upwards positive.)
-                var scale = olStyleIcon.getScale();
-                var olDispX = Number(displacement.displacementx) / scale;
-                var olDispY = -Number(displacement.displacementy) / scale;
+                var olDispX = Number(displacement.displacementx);
+                var olDispY = -Number(displacement.displacementy);
                 olStyleIcon.setDisplacement([olDispX, olDispY]);
                 olStyleIcon.displacementDefined = true;
             }

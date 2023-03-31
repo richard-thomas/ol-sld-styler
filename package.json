@@ -1,6 +1,6 @@
 {
   "name": "ol-sld-styler",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Style OpenLayers vector layers using SLD data",
   "main": "dist/ol-sld-styler.js",
   "scripts": {
@@ -16,8 +16,8 @@
   "author": "Richard Thomas",
   "license": "ISC",
   "dependencies": {
-    "@nieuwlandgeo/sldreader": "^0.2.12",
-    "ol": "^6.10.0"
+    "@nieuwlandgeo/sldreader": "^0.2.13",
+    "ol": "^7.0.0"
   },
   "repository": {
     "type": "git",

@@ -21,6 +21,11 @@
     opacity: 0.8;
 }
 
+/* Remove padding reserved for a closer on the left */
+.layer-switcher.shown.layer-switcher-activation-mode-click {
+    padding-left: 2px;
+}
+
 /* Additions to ol-layerswitcher for ol-sld-styler... */
 
 /* "(Loading...)" text placeholder */
