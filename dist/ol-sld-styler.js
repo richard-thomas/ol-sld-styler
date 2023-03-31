@@ -1085,9 +1085,6 @@ function createSymbol(cssSizing, symbolStyleFn, exampleFeature, realResolution)
     const canvasCssWidth = cssSizing.width + 2 * cssSizing.margin;
     const canvasCssHeight = cssSizing.height + 2 * cssSizing.margin;
 
-    // Handle OpenLayers issue 12574 introduced from ol 6.5.0 -> 6.6.1
-    var olIssue12574Hit = false;
-
     // May need to scale up the symbol canvas size to avoid clipping of
     // centre-point shifted point symbolizers
     var tempScaling = 1.0;
@@ -1156,14 +1153,6 @@ function createSymbol(cssSizing, symbolStyleFn, exampleFeature, realResolution)
             tempScaling = Math.max(1.0,
                 extentWidth * scale / cssSizing.width,
                 extentHeight * scale / cssSizing.height);
-
-            // Handle OpenLayers bug introduced from ol 6.5.0 -> 6.6.1
-            // https://github.com/openlayers/openlayers/issues/12574
-            if (ol_has_DEVICE_PIXEL_RATIO !== 1.0 &&
-                img instanceof ol_style_Icon) {
-                olIssue12574Hit = true;
-                console.warn('Forcing workaround for OpenLayers Issue 12754');
-            }
         }
     }
 
@@ -1187,9 +1176,7 @@ function createSymbol(cssSizing, symbolStyleFn, exampleFeature, realResolution)
     const vectorContext = ol_render_toContext(ctx, {
         size: [canvasCssWidth * tempScaling,
             canvasCssHeight * tempScaling],
-            // Handle OpenLayers issue 12574 introduced from ol 6.5.0 -> 6.6.1
-            //pixelRatio: ol_has_DEVICE_PIXEL_RATIO
-            pixelRatio: olIssue12574Hit ? 1.0 : ol_has_DEVICE_PIXEL_RATIO
+            pixelRatio: ol_has_DEVICE_PIXEL_RATIO
         });
 
     // Remove any temporary enlargement by tempScaling

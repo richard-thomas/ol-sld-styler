@@ -100,9 +100,9 @@ The support outlined below is as tested in QGIS 3.22.1 and SLDReader v0.2.12. (N
 
 For details of the current specifically-supported symbolizers in SLDreader see [SLDreader: Restrictions on supported SLD Features](https://github.com/nieuwlandgeo/sldreader#restrictions-on-supported-sld-features).
 
-## Known ol-sld-reader limitations
+## Known ol-sld-styler limitations
 
-It is hoped to be able to address the following issues:
+It is hoped to be able to address the following issues one day:
 
 - Marker Line ("GraphicStroke with mark") line or polygon symbolizers are not click selectable: it is unclear whether this is a bug in OpenLayers itself.
   - **WORKAROUND**: if wanting to generate selectable circular markers, you can use lines with custom dash patterns with extremely short dashes and round linecap type.
