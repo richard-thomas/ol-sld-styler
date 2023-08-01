@@ -30,8 +30,8 @@ export default function (hideAtStartup, foldAtStartup) {
 
     const lyrCompositeDTM1mHillshade2020 = new ol_layer_Tile({
         source: new ol_source_TileWMS(({
-            url: 'https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m-2020/wms',
-            attributions: '&copy; Environment Agency copyright and/or database right 2020. ' +
+            url: 'https://environment.data.gov.uk/spatialdata/lidar-composite-digital-terrain-model-dtm-1m-2022/wms',
+            attributions: '&copy; Environment Agency copyright and/or database right 2022. ' +
                 'All rights reserved. ' +
                 '<a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"' +
                 ' target="_blank" title="Open Government Licence">OGL</a>',
@@ -40,12 +40,12 @@ export default function (hideAtStartup, foldAtStartup) {
                 "TILED": "true",
                 "VERSION": "1.3.0"},
             })),
-        title: 'DTM Hillshade (1m resolution, 2020)'
+        title: 'DTM Hillshade (1m resolution, 2022)'
     });
 
     const lyrCompositeDSM1mHillshade2020 = new ol_layer_Tile({
         source: new ol_source_TileWMS(({
-            url: 'https://environment.data.gov.uk/spatialdata/lidar-composite-digital-surface-model-DSM-1m-2020/wms',
+            url: 'https://environment.data.gov.uk/spatialdata/lidar-composite-digital-surface-model-last-return-dsm-1m-2022/wms',
             attributions: '&copy; Environment Agency copyright and/or database right 2020. ' +
                 'All rights reserved. ' +
                 '<a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"' +
@@ -55,7 +55,7 @@ export default function (hideAtStartup, foldAtStartup) {
                 "TILED": "true",
                 "VERSION": "1.3.0"},
             })),
-        title: 'DSM Hillshade (1m resolution, 2020)'
+        title: 'DSM Hillshade (1m resolution, 2022)'
     });
 
     // Layer Group: 'Environment Agency LiDAR'
