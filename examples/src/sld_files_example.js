@@ -29,7 +29,7 @@ import {get as ol_proj_get} from 'ol/proj';
 import ol_Map from 'ol/Map';
 import ol_View from 'ol/View';
 import ol_layer_Tile from 'ol/layer/Tile';
-import ol_source_Stamen from 'ol/source/Stamen';
+import ol_source_XYZ from 'ol/source/XYZ';
 
 // Check if we need to add Proj4s definition for requested display projection
 if (!ol_proj_get(mapConfig.displayProjection)) {
@@ -84,8 +84,14 @@ const lyrStamenTonerLite = new ol_layer_Tile({
     title: 'Stamen Toner Lite',
     properties: {'type': 'base' },
     opacity: 0.35,
-    source: new ol_source_Stamen({
-        layer: 'toner-lite'
+    source: new ol_source_XYZ({
+        url: 'https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}@2x.png',
+        attributions: [
+        '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>',
+        '&copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a>',  // Required for Stamen styles
+        '&copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a>',
+        '&copy; <a href="https://www.openstreetmap.org/about/" target="_blank">OpenStreetMap contributors</a>'
+        ]
     })
 });
 
