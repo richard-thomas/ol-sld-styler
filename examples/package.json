@@ -11,6 +11,7 @@
     "start-layersw": "webpack serve --open layersw_example.html --config-name layersw",
     "start-legend": "webpack serve --open legend_example.html --config-name legend",
     "start-full": "webpack serve --open full_example.html --config-name full",
+    "start-styles": "webpack serve --open qgisstyles_example.html --config-name qgisstyles",
     "build": "webpack",
     "sql-install": "cp node_modules/sql.js/dist/sql-wasm.wasm dist"
   },

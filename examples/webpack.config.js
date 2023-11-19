@@ -230,5 +230,51 @@ module.exports = [
     // Used by loadGpkg.js to load sql.js
     asyncWebAssembly: true
   }
+},
+{
+  name: 'qgisstyles',
+  mode: 'development',
+  //mode: 'production',
+  entry: './src/qgisstyles_example.js',
+  output: {
+    filename: 'qgisstyles_bundle.js'
+  },
+  devtool: 'source-map',
+  devServer: {
+    static: './dist'
+  },
+  resolve: {
+    fallback: {
+      fs: false,
+      "crypto": require.resolve("crypto-browserify"),
+      "path": require.resolve("path-browserify"),
+      "stream": require.resolve("stream-browserify"),
+      "util": require.resolve("util/"),
+      "buffer": false
+    }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        type: 'asset/resource',
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: 'asset/resource'
+      }
+    ],
+  },
+  experiments: {
+    // Used by loadGpkg.js to load sql.js
+    asyncWebAssembly: true
+  }
 }
 ];

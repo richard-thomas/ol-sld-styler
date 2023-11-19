@@ -35,7 +35,10 @@ The support outlined below is as tested in QGIS 3.22.1 and SLDReader v0.2.12. (N
     - SVG fill: (but see notes in next section for non-"solid" stroke style)
     - Outline: Marker Line
     - Outline: Simple Line (including custom dash pattern)
-  - Fill style: Solid (only)
+  - Fill style: All "Simple Fill" styles supported:
+    - solid
+    - hatching: Horizontal, Vertical, Cross, BDiagonal, FDiagonal, Diagonal X
+    - dot density brush patterns: Dense 1 ... Dense 7
   - Multi-symbol layers: yes (including predefined and custom dash Stroke styles)
 - Text Symbolizers (i.e. labels):
   - Text: font setting and sizing
@@ -44,6 +47,8 @@ The support outlined below is as tested in QGIS 3.22.1 and SLDReader v0.2.12. (N
     - Offset from Point: Quadrant works, but X/Y offsets only work for positive values (QGIS Bug)
   - Placement Mode (Line):
     - Curved
+  - Placement Mode (Polygon):
+    - Offset from Centroid: Quadrant works, but X/Y offsets only work for positive values (QGIS Bug)
   - (other Placement modes not yet tested)
 - General:
   - Symbology Type: Single Symbol, Categorized, Rule-based, (other types not tested)
@@ -70,7 +75,7 @@ The support outlined below is as tested in QGIS 3.22.1 and SLDReader v0.2.12. (N
       - **WORKAROUND**: hand modify QGIS-exported SLD file to add a PNG filename and the marker size field used in the original QGIS map. See example [OS 1st edition (PNG fill).sld](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/sld/OS%201st%20edition%20(PNG%20fill).sld) file used as part of the [Fully-featured example](Examples.md#fully-featured-example).
     - Centroid Fill/Geometry Generator/Gradient Fill/Line Pattern Fill/Point Pattern Fill/Random Marker Fill/Shapeburst Fill: not exported to SLD
     - Outline types: Hashed/Interpolated Line: not exported to SLD
-  - Fill style: (only "solid" supported)
+  - Fill style: Only "Simple Fill" styles supported
   - Stroke style: simple fill does not allow custom dash pattern or cap style to be specified. Resultant cap style is not specified so takes default "round" in OpenLayers which is different to QGIS which defaults to "square" (default is "butt" in GeoServer, so different again)
     - **WORKAROUND**: never use Stroke style other than "solid" with "simple fill" - instead add an extra symbol layer of "Outline: Simple Line" layer type and set cap style to Flat (i.e. "butt" in SLD terms). As an example see 'Water' and 'Enclosure boundary' symbols in "OS 1st edition (SVG Fill)" layer of [Fully-featured example](Examples.md#fully-featured-example).
 - Text Symbolizers (i.e. labels):
@@ -93,10 +98,6 @@ The support outlined below is as tested in QGIS 3.22.1 and SLDReader v0.2.12. (N
 - Point symbolizer external graphic displacement ignored
   - **WORKAROUND**: can use tweakOlStyle() to modify displacement in OpenLayers - see setIconDisplacement() support function in example
 - Parameterized SVGs are not supported: when used in QGIS there is however also a "fallback" rule exported that has no parameters. Hence for example, parameterized colouring will be lost (only colouring hard-coded within the SVG will be used). However, the colour of the fill applied as a background in QGIS will tint the black line drawing.
-- Polygon graphic fill of "well known shapes" (e.g. hatching)
-  - although embedded in the SLD by QGIS this is not defined in the SLD specification. In sldreader it would require canvasPattern generation for each type (e.g. "slash", "horline"). This would not be simple - further details here:
-    - [HTML canvas patterns (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createPattern)
-    - [OpenLayers CanvasPattern](https://openlayers.org/en/latest/examples/canvas-gradient-pattern.html) - note width and height would need to be a power of 2 for repeating patterns.
 
 For details of the current specifically-supported symbolizers in SLDreader see [SLDreader: Restrictions on supported SLD Features](https://github.com/nieuwlandgeo/sldreader#restrictions-on-supported-sld-features).
 
