@@ -28,7 +28,7 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "ol": "^7.5.2",
     "ol-layerswitcher": "^4.1.1",
-    "ol-load-geopackage": "^1.0.3",
+    "ol-load-geopackage": "^2.3.1",
     "ol-sld-styler": "^1.0.3",
     "proj4": "^2.9.2"
   }

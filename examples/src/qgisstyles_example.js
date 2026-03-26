@@ -22,8 +22,10 @@ import 'ol-sld-styler/dist/ol-sld-styler.css';
 import './default.css';
 
 // Module to import OGC GeoPackages
-// (import early to start async loading of required sql.js Web Assembly code)
-import loadGpkg from 'ol-load-geopackage';
+import { initSqlJsWasm, loadGpkg } from 'ol-load-geopackage';
+
+// Start loading of sql.js Web Assembly (WASM) from current folder
+initSqlJsWasm('.');
 
 import {createAllLayers, styleLayers, checkForMissingData,
     showLayerSwitcherSymbols} from 'ol-sld-styler';
