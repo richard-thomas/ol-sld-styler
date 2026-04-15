@@ -12,17 +12,15 @@
 
 // Style Parser (SLD)
 import * as SLDReader from '@nieuwlandgeo/sldreader';
-
-import {getPointResolution} from 'ol/proj';
-import {DEVICE_PIXEL_RATIO as ol_has_DEVICE_PIXEL_RATIO} from 'ol/has';
-import {toContext as ol_render_toContext} from 'ol/render';
-import {extend as ol_extent_extend} from 'ol/extent';
-import ol_geom_Point from 'ol/geom/Point';
-import ol_geom_LineString from 'ol/geom/LineString';
-import ol_geom_Polygon from 'ol/geom/Polygon';
-import ol_layer_Vector from 'ol/layer/Vector';
-import ol_layer_Group from 'ol/layer/Group';
-import ol_style_Icon from 'ol/style/Icon';
+import {getPointResolution} from 'ol/proj.js';
+import {DEVICE_PIXEL_RATIO as ol_has_DEVICE_PIXEL_RATIO} from 'ol/has.js';
+import {toContext as ol_render_toContext} from 'ol/render.js';
+import {extend as ol_extent_extend} from 'ol/extent.js';
+import ol_geom_Point from 'ol/geom/Point.js';
+import ol_geom_LineString from 'ol/geom/LineString.js';
+import ol_geom_Polygon from 'ol/geom/Polygon.js';
+import ol_layer_Vector from 'ol/layer/Vector.js';
+import ol_layer_Group from 'ol/layer/Group.js';
 
 // -------- Private Variables --------
 
@@ -505,6 +503,20 @@ function styleVectorLayers(view, layerDefs, sldLayerStyles, sldStylesOverride,
     Object.assign(lyrSwiSymbolSizing, lyrSwiSymbolOptions);
     Object.assign(legendSymbolSizing, legendSymbolOptions);
 
+    /**
+     * In QGIS compatiblity mode, URL folder to redirect any SLD SVG paths set to
+     * local disk (as will be found for QGIS system SVGs).
+     * Default value here is QGIS source folders on GitHub (not ideal as slow).
+     */
+    const onlineResourceRedirectFolder = options.qgisCompatibility?.onlineResourceRedirectFolder ??
+        'https://raw.githubusercontent.com/qgis/QGIS/refs/heads/master/images/svg';
+
+    /**
+     * Regular Expression to search SLD for ONLY QGIS SVG system folder '/svg/'
+     * as a local path, i.e. starting with '/' (linux) or 'C:/' (Windows)
+     */
+    const reOnlineResource = new RegExp(/OnlineResource xlink:href=[\\]?"[A-Z]?[:]?\/.*\/svg\//, "gi");
+
     for (const layerDef of layerDefs) {
         const olLayer = layerDef.olLayer;
         const styleName = layerDef.styleName;
@@ -557,6 +569,24 @@ function styleVectorLayers(view, layerDefs, sldLayerStyles, sldStylesOverride,
             continue;
         }
 
+        // Redirect any SLD SVG paths set to local disk (as would be found for
+        // any standard QGIS SVG (system) markers).
+        if (options.qgisCompatibility?.enable) {
+            let newLayerSld = layerSld.replaceAll(reOnlineResource,
+                `OnlineResource xlink:href="${onlineResourceRedirectFolder}/`);
+            if (newLayerSld !== layerSld) {
+                layerSld = newLayerSld;
+                if (options.qgisCompatibility.onlineResourceRedirectFolder == undefined) {
+                    console.warn('SVG sourced from local disk in SLD layer ' +
+                        `'${styleName}' redirected to QGIS GitHub URL folder ` +
+                        `(not recommended): ${onlineResourceRedirectFolder}`);
+                } else {
+                    console.log('SVG sourced from local disk in SLD layer ' +
+                        `'${styleName}' redirected to URL folder: ${onlineResourceRedirectFolder}`);
+                }
+            }
+        }
+
         // Use "SLDreader" to build "featureTypeStyle" object
         // and apply a derived olStyleFn to the layer
         const featureTypeStyle = applySLD(view, styleName, olLayer, layerSld,
@@ -583,7 +613,7 @@ function styleVectorLayers(view, layerDefs, sldLayerStyles, sldStylesOverride,
         // symbology and min/max resolutions at which each symbol is
         // actually rendered (for Map Legend and/or Layer Switcher)
         if (generateSymbologyIcons) {
-            extractLayerSymbology(featureTypeStyle.rules, layerDef,
+            extractLayerSymbology(featureTypeStyle, layerDef,
                 exampleFeature, options.tweakOlStyle,
                 getRealResolution(view));
         }
@@ -611,7 +641,11 @@ function styleVectorLayers(view, layerDefs, sldLayerStyles, sldStylesOverride,
 function applySLD(view, styleName, olVectorLayer, rawSldXml, options) {
     // Use "SLDreader" (https://github.com/NieuwlandGeo/SLDReader) to build
     // "featureTypeStyle" definition from SLD XML string
-    const sldObject = SLDReader.Reader(rawSldXml);
+    let sldReaderOptions = {};
+    if (options.qgisCompatibility?.enable) {
+        sldReaderOptions['compatibilityMode'] = 'QGIS';
+    }
+    const sldObject = SLDReader.Reader(rawSldXml, sldReaderOptions);
     const sldLayer = SLDReader.getLayer(sldObject);
 
     // QGIS exports an empty style name "", so need to set it as default
@@ -1300,27 +1334,35 @@ function getSymbolLayerGroups(layerDefs) {
  * For current layer, extract from each SLD-derived rule the symbology and
  * min/max resolutions at which each symbol is actually rendered
  * (for Map Legend and/or Layer Switcher)
- * @param {object[]} rules - layer symbology rules
+ * @param {object} featureTypeStyle - source for layer symbology rules
  * @param {object} layerDef - vector feature layer definition for layer
  * @param {ol_Feature} exampleFeature - an OpenLayers feature from the layer
  * @param {number} tweakOlStyle - olStyle tweak function
  * @param {number} realResolution - resolution in metres/pixel at view centre
  */
-function extractLayerSymbology(rules, layerDef, exampleFeature, tweakOlStyle,
-    realResolution) {
+function extractLayerSymbology(featureTypeStyle, layerDef, exampleFeature,
+    tweakOlStyle, realResolution) {
 
     // Check to see if layer has multiple different symbol types
     // (Other layers have 1st rule name "Single Symbol" or undefined)
-    const rule0name = rules[0].name;
+    const rule0name = featureTypeStyle.rules[0].name;
     const multiSymbol = typeof rule0name !== 'undefined' &&
         rule0name !== 'Single symbol' && rule0name !== '';
+
+    // Append any elseFilter rule onto end of (filter-based) rules
+    let rules;
+    if (featureTypeStyle.elseFilterRules) {
+        rules = featureTypeStyle.rules.concat(featureTypeStyle.elseFilterRules);
+    } else {
+        rules = featureTypeStyle.rules;
+    }
 
     // Create zero or one symbols for each layer rule
     var symbols = [];
     for (const rule of rules) {
         // Extract rule with only symbolizer and min/max
         // scaledenominator (i.e. remove all attribute filters)
-        var simpleRule = {};
+        var ruleSymbolizers = [];
         var symbolizerCount = 0;
         var zoomModified = false;
 
@@ -1331,16 +1373,21 @@ function extractLayerSymbology(rules, layerDef, exampleFeature, tweakOlStyle,
             if (field.indexOf('scaledenominator') > 0) {
                 symbol[field] = rule[field];
                 zoomModified = true;
-            } else if (field.indexOf('symbolizer') > 0 &&
-                field !== 'textsymbolizer') {
-                simpleRule[field] = rule[field];
-                symbolizerCount++;
+            } else if (field === 'symbolizers') {
+                for (const symbolizer of rule[field]) {
+                    if (symbolizer.type !== 'textsymbolizer') {
+                        ruleSymbolizers.push(symbolizer);
+                        symbolizerCount++;
+                    }
+                }
             }
         }
 
         if (symbolizerCount) {
             symbol.label = rule.name || 'No label';
-            const symbolFts = { rules: [simpleRule] };
+            const symbolFts = {
+                rules: [{'symbolizers': ruleSymbolizers}],
+                elseFilterRules : null };
             const symbolStyleFn = SLDReader.createOlStyleFunction(symbolFts, {
 
                 // When any external graphics for layer symbology finally loads,
