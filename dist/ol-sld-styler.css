@@ -77,6 +77,7 @@
     margin-left: 2.7em;
     margin-right: 0.3em;
     float: left;
+    flex-shrink: 0;
 }
 
 /* Symbology hide/show icon adapted from ol-layerswitcher group toggle */
@@ -95,6 +96,7 @@
     left: 0;
     width: 16px;
     height: 16px;
+    font-size: 1em;
     margin: 0;
     margin-left: 2.4em;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAW0lEQVR4nGNgGAWMyBwXFxcGBgaGeii3EU0tXHzPnj1wQRYsihqQ+I0ExDEMQAYNONgoAN0AmMkNaDSyQSheY8JiaCMOGzE04zIAmyFYNTMw4A+DRhzsUUBtAADw4BCeIZkGdwAAAABJRU5ErkJggg==);
@@ -179,6 +181,7 @@
     margin-left: 2.7em;
     margin-right: 0.3em;
     float: left;
+    flex-shrink: 0;
 }
 .legend-table .label-single-symbol .symbol-canvas {
     margin-left: 0;
