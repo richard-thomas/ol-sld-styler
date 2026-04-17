@@ -54,27 +54,32 @@ Parameters:
 
 Option | Type | Description
 -- | -- | --
+qgisCompatibility | object | Apply fixes for QGIS SLD export issues. Properties are:
+&emsp;.enable | boolean | Turn on QGIS compatibility in underlying sldReader package. Also redirect any SLD SVG paths set to local disk (as will be found for QGIS system SVGs).
+&emsp;.svgRedirectFolder | string | URL folder to redirect any local SLD SVG paths. Default value is QGIS source folders on GitHub (not ideal as slow).
 showLegend | boolean | generate symbology icons for ol-sld-styler/Legend
 legendSymbolSizing | object | ol-sld-styler/Legend symbol canvas sizing in CSS pixels. Properties are:
-.width | number | line/polygon drawn width (default 30)
-.height | number | polygon drawn height (default 18)
-.margin | number | additional margin on all sides (default 2)
+&emsp;.width | number | line/polygon drawn width (default 30)
+&emsp;.height | number | polygon drawn height (default 18)
+&emsp;.margin | number | additional margin on all sides (default 2)
 addLayerSwitcherSymbols | boolean | generate symbology icons for adding to ol-layerswitcher (Layer Switcher) layers
 lyrSwiSymbolSizing | object | Layer Switcher symbol canvas sizing in CSS pixels. Properties are:
-.width | number | line/polygon drawn width (default 20)
-.height | number | polygon drawn height (default 18)
-.margin | number | additional margin on all sides (default 2)
+&emsp;.width | number | line/polygon drawn width (default 20)
+&emsp;.height | number | polygon drawn height (default 18)
+&emsp;.margin | number | additional margin on all sides (default 2)
 tweakFeatureTypeStyle | function | modify "featureTypeStyle" extracted from  SLD style information by sldReader. Gets called once at setup time when SLDs are extracted. Used to overcome limitations of QGIS export and/or sldreader. (Function parameters described below.)
 tweakOlStyle | function | modify generated olStyle definitions for things not possible to define in SLD or "featureTypeStyle" itself (e.g. meters at scale). Gets called for every visible feature rendered. (Function parameters described below.)
 debugShowFeatureTypeStyle | boolean | write to browser console sldReader-extracted FeatureTypeStyles objects
 
-When using QGIS "Package Layers" GeoPackage output, the layer_styles table would contain the source-specific SLDs with "style name" = "table name". Overriding SLDs (potentially sourced from individual SLD files) will automatically override source-specific SLDs if they have the same style name, or can be mapped to do so in the previously parsed dataLayersConfig. If multiple QGIS-exported GeoPackages are being used then this function can be called once for each GeoPackage to simplify using of the embedded layer_styles tables.
+When using QGIS "Package Layers" GeoPackage output, the layer_styles table would contain the source-specific SLDs with "style name" = "table name". Overriding SLDs (potentially sourced from individual SLD files) will automatically override source-specific SLDs if they have the same style name, or can be mapped to do so in the previously parsed dataLayersConfig (by setting `styleName: '<sld file name>'`). If multiple QGIS-exported GeoPackages are being used then this function can be called once for each GeoPackage to simplify using of the embedded layer_styles tables.
+
+`qgisCompatibility.svgRedirectFolder` option: in QGIS if you use an SVG symbol from the QGIS system collection, exported SLD will set the associated `OnlineResource` path to an absolute path on the local disk which cannot work for a web application (e.g. '/usr/share/qgis/svg' (Linux) or 'C:/OSGeo4W/apps/qgis/svg' (Windows)). If `qgisCompatibility` is enabled, any such SLD 'svg' references will be redirected to `svgRedirectFolder` for which it is recommendend to make it a relative URL path (e.g. 'qgis_svg'). You would then need to host such a folder where you should copy just the required SVGs from the QGIS system folders. To allow for easy website development, `svgRedirectFolder` defaults to the QGIS Github versions, but this is not recommended for production as they might be slow to load (a console warning will be given).
 
 Workarounds for limitations of SLD styling can be implemented in supplied 'tweak' functions supplied in the `options` object. The required formats for these optional `tweakFeatureTypeStyle` and `tweakOlStyle` functions are as follows:
 
 `tweakFeatureTypeStyle`: function(styleName, featureTypeStyle)
 
-Modify "featureTypeStyle" extracted from SLD style information by sldReader. Gets called once for each layer at setup time when SLD is parsed. Used to overcome limitations of QGIS export and/or sldreader.
+Modify "featureTypeStyle" extracted from SLD style information by sldReader. Gets called once for each layer at setup time when SLD is parsed. Used to overcome limitations of QGIS export and/or the underlying [sldreader](https://www.npmjs.com/package/@nieuwlandgeo/sldreader) package.
 
 Parameters:
 
