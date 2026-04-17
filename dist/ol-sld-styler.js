@@ -508,7 +508,7 @@ function styleVectorLayers(view, layerDefs, sldLayerStyles, sldStylesOverride,
      * local disk (as will be found for QGIS system SVGs).
      * Default value here is QGIS source folders on GitHub (not ideal as slow).
      */
-    const onlineResourceRedirectFolder = options.qgisCompatibility?.onlineResourceRedirectFolder ??
+    const svgRedirectFolder = options.qgisCompatibility?.svgRedirectFolder ??
         'https://raw.githubusercontent.com/qgis/QGIS/refs/heads/master/images/svg';
 
     /**
@@ -573,16 +573,16 @@ function styleVectorLayers(view, layerDefs, sldLayerStyles, sldStylesOverride,
         // any standard QGIS SVG (system) markers).
         if (options.qgisCompatibility?.enable) {
             let newLayerSld = layerSld.replaceAll(reOnlineResource,
-                `OnlineResource xlink:href="${onlineResourceRedirectFolder}/`);
+                `OnlineResource xlink:href="${svgRedirectFolder}/`);
             if (newLayerSld !== layerSld) {
                 layerSld = newLayerSld;
-                if (options.qgisCompatibility.onlineResourceRedirectFolder == undefined) {
+                if (options.qgisCompatibility.svgRedirectFolder == undefined) {
                     console.warn('SVG sourced from local disk in SLD layer ' +
                         `'${styleName}' redirected to QGIS GitHub URL folder ` +
-                        `(not recommended): ${onlineResourceRedirectFolder}`);
+                        `(not recommended): ${svgRedirectFolder}`);
                 } else {
                     console.log('SVG sourced from local disk in SLD layer ' +
-                        `'${styleName}' redirected to URL folder: ${onlineResourceRedirectFolder}`);
+                        `'${styleName}' redirected to URL folder: ${svgRedirectFolder}`);
                 }
             }
         }
