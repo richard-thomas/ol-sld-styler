@@ -29,12 +29,12 @@ import {createAllLayers, styleLayers, checkForMissingData,
     insertLegend} from 'ol-sld-styler';
 
 // OpenLayers 6 modules
-import ol_control_Control from 'ol/control/Control';
-import {get as ol_proj_get} from 'ol/proj';
-import ol_Map from 'ol/Map';
-import ol_View from 'ol/View';
-import ol_layer_Tile from 'ol/layer/Tile';
-import ol_source_XYZ from 'ol/source/XYZ';
+import ol_control_Control from 'ol/control/Control.js';
+import {get as ol_proj_get} from 'ol/proj.js';
+import ol_Map from 'ol/Map.js';
+import ol_View from 'ol/View.js';
+import ol_layer_Tile from 'ol/layer/Tile.js';
+import ol_source_XYZ from 'ol/source/XYZ.js';
 
 // Check if we need to add Proj4s definition for requested display projection
 if (!ol_proj_get(mapConfig.displayProjection)) {
@@ -72,13 +72,10 @@ const gpkgStyledPromise = Promise.all([gpkgPromise, sldFilesLoadedPromise])
 // Ordered list of OpenLayers data layers/groups
 var dataLayerList;
 
-// Layers for which click-selection is enabled (not used in this example)
-var selectableLayers;
-
 // Parse data layer definitions and create placeholder layers which will be
 // updated when actual data has been loaded
 try {
-    [dataLayerList, selectableLayers] = createAllLayers(
+    [dataLayerList] = createAllLayers(
         mapConfig.dataLayersConfig);
 } catch (error) {
     fatalError("Problem with mapConfig.dataLayersConfig:\n" + error);

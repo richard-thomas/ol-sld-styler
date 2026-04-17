@@ -31,9 +31,9 @@ import {createAllLayers, styleLayers, checkForMissingData,
     showLayerSwitcherSymbols} from 'ol-sld-styler';
 
 // OpenLayers 6 modules
-import {get as ol_proj_get} from 'ol/proj';
-import ol_Map from 'ol/Map';
-import ol_View from 'ol/View';
+import {get as ol_proj_get} from 'ol/proj.js';
+import ol_Map from 'ol/Map.js';
+import ol_View from 'ol/View.js';
 
 // Matt Walker's OpenLayers layer selector control
 import LayerSwitcher from 'ol-layerswitcher';
@@ -76,13 +76,10 @@ const gpkgStyledPromise = gpkgPromise
 // Ordered list of OpenLayers data layers/groups
 var dataLayerList;
 
-// Layers for which click-selection is enabled (not used in this example)
-var selectableLayers;
-
 // Parse data layer definitions and create placeholder layers which will be
 // updated when actual data has been loaded
 try {
-    [dataLayerList, selectableLayers] = createAllLayers(
+    [dataLayerList] = createAllLayers(
         mapConfig.dataLayersConfig);
 } catch (error) {
     fatalError("Problem with mapConfig.dataLayersConfig:\n" + error);
@@ -136,58 +133,6 @@ gpkgStyledPromise
 //-----------------------------------------------------------------------------
 // Function definitions only from here
 //-----------------------------------------------------------------------------
-
-/**
- * Load list of SLD files
- * @param {string[]} sldFiles - array of (overriding) SLD styling files
- * @returns {Promise} object of SLD XML strings (key = layer name)
- */
-function loadAllSldFiles(sldFiles) {
-    var sldPromises = [];
-    var sldsFromFiles = {};
-
-    for (let sldFile of sldFiles) {
-        const sldPromise = loadSld(sldFile)
-            .then(sldText => processSldFileData(sldFile, sldText))
-            // Flag fatal error to user
-            // (but code will actually limp on with missing styles marked)
-            .catch(error => fatalError(error));
-        sldPromises.push(sldPromise);
-    }
-    return Promise.allSettled(sldPromises)
-        .then( () => sldsFromFiles);
-
-    // Load a single SLD file
-    // Returns Promise, then an SLD text string on successful completion
-    function loadSld(sldFile) {
-        return new Promise(function(succeed, fail) {
-            const oReq = new XMLHttpRequest();
-            oReq.onreadystatechange = function() {
-
-                // When request finished and response is ready
-                if (this.readyState == 4) {
-                    const sldText = this.responseText;
-                    if (this.status === 200 && sldText) {
-                        succeed(sldText);
-                    } else {
-                        fail(new Error('Requested SLD file could not be loaded: ' +
-                            sldFile));
-                    }
-                }
-            };
-            oReq.open("GET", sldFile);
-            oReq.send();
-        });
-    }
-
-    // Store SLD XML text string in sldsFromFiles object indexed by its filename
-    // with folder path and .sld suffix stripped off
-    function processSldFileData(sldFile, sldText) {
-        const sldFileName = sldFile.replace(/^.*[\\/]/, '')
-            .replace(/\.(sld|SLD)$/, '');
-        sldsFromFiles[sldFileName] = sldText;
-    }
-}
 
 /**
  * For development: display helper template data for all tables in GeoPackage

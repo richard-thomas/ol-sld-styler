@@ -94,6 +94,14 @@ var mapConfig = {
     // Configuration of layer styling, for debug and for (optionally)
     // generating symbology icons for Legend and/or Layer Switcher
     sldStylerOptions: {
+       // Turn on QGIS compatibility options to fix QGIS-specific SLD issues
+        qgisCompatibility: {
+            enable: true,
+
+            // Redirect QGIS system SVG icon paths to URL relative path
+            svgRedirectFolder: 'qgis_svg'
+        },
+
         // (Optional) Generate symbols for Layer Switcher
         addLayerSwitcherSymbols: true,
 
@@ -128,17 +136,22 @@ var mapConfig = {
              * Scale all stroke dasharrays in FeatureTypeStyle by stroke width
              * (helper function to overcome bug in QGIS "package layers" export
              *  when using predefined (not custom) dash patterns)
-             * @param {object} o - FeatureTypeStyle object
+             * @param {object} ftso - FeatureTypeStyle object
              */
-            function scaleLineSymbolizerDashArray(o) {
-                if (o.strokeDasharray && o.strokeWidth > 1) {
-                    o.strokeDasharray = o.strokeDasharray.split(' ')
-                        .map(x => parseFloat(x) * o.strokeWidth).join(' ');
+            function scaleLineSymbolizerDashArray(ftso) {
+                // For any stroke dasharray in current object with stroke
+                // width > 1, scale dasharray values by stroke width
+                if (ftso.strokeDasharray && ftso.strokeWidth > 1) {
+                    ftso.strokeDasharray = ftso.strokeDasharray.split(' ')
+                        .map(x => parseFloat(x) * ftso.strokeWidth).join(' ');
                 }
-                for (var p in o) {
-                    if (Object.prototype.hasOwnProperty.call(o, p) &&
-                        typeof o[p] === 'object' ) {
-                        scaleLineSymbolizerDashArray(o[p]);
+
+                // Recursively check any properties that are themselves
+                // non-null objects for stroke dasharrays to scale
+                for (var prop in ftso) {
+                    if (Object.prototype.hasOwnProperty.call(ftso, prop) &&
+                        typeof ftso[prop] === 'object' && ftso[prop]) {
+                        scaleLineSymbolizerDashArray(ftso[prop]);
                     }
                 }
             }
@@ -165,24 +178,6 @@ var mapConfig = {
             }
 
             switch (styleName) {
-                case 'Notable features (SVG Marker)':
-                    // Set Point Symbolizer displacement from SLD values
-                    // exported by QGIS (currently ignored by sldreader)
-                    setIconDisplacement(
-                        featureTypeStyle.rules[0].pointsymbolizer.graphic.displacement,
-                        olStyle[0].getImage());
-                    break;
-
-                // Scale width from pixels to metres
-                // (for a projected SRS, resolution = metres/pixel)
-                case 'Probable path (10m nominal width)':
-                    if (createSymbol) {
-                        resolution = 3.0;
-                    }
-                    olStyle[0].stroke_.width_ = featureTypeStyle.rules[0]
-                        .linesymbolizer.stroke.styling.strokeWidth / resolution;
-                    break;
-
                 // Scale (for resolution) sizing of hachure width and spacing
                 case 'OS 1st edition (SVG Fill)':
                     if (createSymbol) {
@@ -195,7 +190,7 @@ var mapConfig = {
                     }
                     if (symbolLabel === 'Hachure') {
                         var hachureLineSymbolizers =
-                            featureTypeStyle.rules[0].linesymbolizer;
+                            featureTypeStyle.rules[0].symbolizers;
                         if (!Array.isArray(hachureLineSymbolizers)) {
                             hachureLineSymbolizers = [hachureLineSymbolizers];
                         }
@@ -232,29 +227,6 @@ var mapConfig = {
                     break;
             }
             return olStyle;
-
-            /**
-             * Set Point Symbolizer displacement from SLD displacement values
-             * (as exported by QGIS) but currently ignored by sldReader
-             * (Uses new setDisplacement() method introduced in OL 6.10.0)
-             * @param {object} displacement - Feature Type Style rule
-             *      pointsymbolizer.graphic.displacement object
-             * @param {object} olStyleIcon - OpenLayers Style Icon Image object
-             */
-            function setIconDisplacement(displacement, olStyleIcon) {
-                // Only define displacement once
-                if (olStyleIcon.displacementDefined) {
-                    return;
-                }
-                // Note that QGIS/GeoServer define Point Symbolizer Y
-                // displacement as downwards positive, so we negate it here.
-                // (It was not defined in SLD 1.0.0 specification, though
-                //  SLD SE 1.1.0 unfortunately defined it as upwards positive.)
-                var olDispX = Number(displacement.displacementx);
-                var olDispY = -Number(displacement.displacementy);
-                olStyleIcon.setDisplacement([olDispX, olDispY]);
-                olStyleIcon.displacementDefined = true;
-            }
         }
     }
 };

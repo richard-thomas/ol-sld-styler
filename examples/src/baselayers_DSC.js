@@ -1,13 +1,13 @@
 // Define all Map base layers (return a single group)
 /* eslint no-unused-vars: 1 */
 
-import ol_layer_Group from 'ol/layer/Group';
-import ol_layer_Tile from 'ol/layer/Tile';
-import ol_source_TileWMS from 'ol/source/TileWMS';
-import ol_source_XYZ from 'ol/source/XYZ';
+import ol_layer_Group from 'ol/layer/Group.js';
+import ol_layer_Tile from 'ol/layer/Tile.js';
+import ol_source_TileWMS from 'ol/source/TileWMS.js';
+import ol_source_XYZ from 'ol/source/XYZ.js';
 // Simplification option when we move to OL8
-//import ol_source_StadiaMaps from 'ol/source/StadiaMaps';
-import ol_source_OSM from 'ol/source/OSM';
+//import ol_source_StadiaMaps from 'ol/source/StadiaMaps.js';
+import ol_source_OSM from 'ol/source/OSM.js';
 
 /**
  * Create OpenLayers map base layers group
@@ -36,7 +36,7 @@ export default function (hideAtStartup, foldAtStartup) {
         })
 */
     });
-     
+
     const lyrOsmMapnik = new ol_layer_Tile({
         title: 'OpenStreetMap (Mapnik)',
         opacity: 0.45,

@@ -39,14 +39,14 @@ import baseLayers from './baselayers_DSC.js';
 //import {register as ol_proj_proj4_register} from 'ol/proj/proj4';
 
 // OpenLayers 6 modules
-import ol_control_Control from 'ol/control/Control';
-import ol_control_ScaleLine from 'ol/control/ScaleLine';
-import ol_interaction_Select from 'ol/interaction/Select';
-import {defaults as ol_control_defaults} from 'ol/control';
-import ol_Overlay from 'ol/Overlay';
-import {get as ol_proj_get} from 'ol/proj';
-import ol_Map from 'ol/Map';
-import ol_View from 'ol/View';
+import ol_control_Control from 'ol/control/Control.js';
+import ol_control_ScaleLine from 'ol/control/ScaleLine.js';
+import ol_interaction_Select from 'ol/interaction/Select.js';
+import {defaults as ol_control_defaults} from 'ol/control.js';
+import ol_Overlay from 'ol/Overlay.js';
+import {get as ol_proj_get} from 'ol/proj.js';
+import ol_Map from 'ol/Map.js';
+import ol_View from 'ol/View.js';
 
 // Map support modules
 import LayerSwitcher from 'ol-layerswitcher';

@@ -31,13 +31,13 @@ import {createAllLayers, styleLayers, checkForMissingData,
     showLayerSwitcherSymbols} from 'ol-sld-styler';
 
 // OpenLayers 6 modules
-import {get as ol_proj_get} from 'ol/proj';
-import ol_Map from 'ol/Map';
-import ol_View from 'ol/View';
-import ol_layer_Tile from 'ol/layer/Tile';
-import ol_source_XYZ from 'ol/source/XYZ';
-import ol_source_OSM from 'ol/source/OSM';
-import ol_layer_Group from 'ol/layer/Group';
+import {get as ol_proj_get} from 'ol/proj.js';
+import ol_Map from 'ol/Map.js';
+import ol_View from 'ol/View.js';
+import ol_layer_Tile from 'ol/layer/Tile.js';
+import ol_source_XYZ from 'ol/source/XYZ.js';
+import ol_source_OSM from 'ol/source/OSM.js';
+import ol_layer_Group from 'ol/layer/Group.js';
 
 // Matt Walker's OpenLayers layer selector control
 import LayerSwitcher from 'ol-layerswitcher';
@@ -78,13 +78,10 @@ const gpkgStyledPromise = Promise.all([gpkgPromise, sldFilesLoadedPromise])
 // Ordered list of OpenLayers data layers/groups
 var dataLayerList;
 
-// Layers for which click-selection is enabled (not used in this example)
-var selectableLayers;
-
 // Parse data layer definitions and create placeholder layers which will be
 // updated when actual data has been loaded
 try {
-    [dataLayerList, selectableLayers] = createAllLayers(
+    [dataLayerList] = createAllLayers(
         mapConfig.dataLayersConfig);
 } catch (error) {
     fatalError("Problem with mapConfig.dataLayersConfig:\n" + error);

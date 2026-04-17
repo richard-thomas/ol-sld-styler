@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <StyledLayerDescriptor xmlns="http://www.opengis.net/sld" version="1.1.0" xmlns:ogc="http://www.opengis.net/ogc" xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:se="http://www.opengis.net/se">
   <NamedLayer>
-    <se:Name>OS 1st edition (PNG fill)</se:Name>
+    <se:Name>OS 1st edition (PNG fill) - simple fill substitute</se:Name>
     <UserStyle>
-      <se:Name>OS 1st edition (PNG fill)</se:Name>
+      <se:Name>OS 1st edition (PNG fill) - simple fill substitute</se:Name>
       <se:FeatureTypeStyle>
         <se:Rule>
           <se:Name>Hachure</se:Name>
@@ -78,18 +78,13 @@
           <se:MaxScaleDenominator>10000</se:MaxScaleDenominator>
           <se:PolygonSymbolizer>
             <se:Fill>
-<!-- Manually edited - START -->
-              <se:GraphicFill>
-                <se:Graphic>
-                  <se:ExternalGraphic>
-                    <se:OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="images/landuse_swamp_128x128.png"/>
-                    <se:Format>image/png</se:Format>
-                  </se:ExternalGraphic>
-                  <se:Size>36</se:Size>
-                </se:Graphic>
-              </se:GraphicFill>
+              <se:SvgParameter name="fill">#ffffff</se:SvgParameter>
             </se:Fill>
-<!-- Manually edited - END -->
+            <se:Stroke>
+              <se:SvgParameter name="stroke">#232323</se:SvgParameter>
+              <se:SvgParameter name="stroke-width">1</se:SvgParameter>
+              <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>
+            </se:Stroke>
           </se:PolygonSymbolizer>
           <se:PolygonSymbolizer>
             <se:Fill>
@@ -127,7 +122,7 @@
               <se:SvgParameter name="stroke">#228b8f</se:SvgParameter>
               <se:SvgParameter name="stroke-width">1</se:SvgParameter>
               <se:SvgParameter name="stroke-linejoin">bevel</se:SvgParameter>
-              <se:SvgParameter name="stroke-linecap">butt</se:SvgParameter>
+              <se:SvgParameter name="stroke-linecap">square</se:SvgParameter>
               <se:SvgParameter name="stroke-dasharray">1 2</se:SvgParameter>
             </se:Stroke>
           </se:LineSymbolizer>

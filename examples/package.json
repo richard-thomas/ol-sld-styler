@@ -4,7 +4,6 @@
   "description": "Examples to demonstrate ol-sld-styler NPM module",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
     "start-basic": "webpack serve --open basic_example.html --config-name basic",
     "start-sldfiles": "webpack serve --open sld_files_example.html --config-name sldfiles",
@@ -26,10 +25,12 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
-    "ol": "^7.5.2",
     "ol-layerswitcher": "^4.1.1",
     "ol-load-geopackage": "^2.3.1",
-    "ol-sld-styler": "^1.0.3",
+    "ol-sld-styler": "^2.0.0",
     "proj4": "^2.9.2"
+  },
+  "peerDependencies": {
+    "ol": ">=7.0.0"
   }
 }
