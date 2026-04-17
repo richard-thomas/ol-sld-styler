@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/ol-sld-styler)](https://www.npmjs.com/package/ol-sld-styler)
 
 A JavaScript module to style OpenLayers vector layers using SLD data and optionally generate a map legend and/or embed symbols in a layer selector.
-It is primarily designed to help build a web map with data/styles directly exported from QGIS as OGC GeoPackage(s) using the [Package Layers](https://docs.qgis.org/3.16/en/docs/user_manual/processing_algs/qgis/database.html#package-layers) Processing Toolbox operation and to quickly rebuild the map with subsequent updated QGIS exports. However, as the module inputs are collections of OpenLayers "vector sources", SLDs and a "layer configuration" object it can also be used for general SLD styling from other data/style sources. It includes user-defined function hooks for modifying SLD-imported styling where desired styling was not possible due to QGIS export or SLD limitations.
+It is primarily designed to help build a web map with data/styles directly exported from QGIS as OGC GeoPackage(s) using the [Package Layers](https://docs.qgis.org/3.44/en/docs/user_manual/processing_algs/qgis/database.html#package-layers) Processing Toolbox operation and thus to be able to quickly update that web map with a single QGIS file export when data and/or styling changes. However, as the module inputs are collections of OpenLayers "vector sources", SLDs and a "layer configuration" object it can also be used for general SLD styling from other data/style sources. It includes user-defined function hooks for modifying SLD-imported styling where desired styling was not possible due to limitations in QGIS export or OpenLayers SLD-rendering.
 
 It is implemented as an NPM module which adds symbology generation, "layer configuration" parsing and user-defined symbology enhancement to the following third party NPM modules:
 
@@ -16,7 +16,7 @@ To extract vector data and SLD layer styles from QGIS "Package Layers" output, i
 
 By using an OGC GeoPackage as its primary data/styling source, it enables creation of an _offline_ map viewer for mobile phones or tablets which have poor (or non-existent) network connectivity. When a network connection is available, data and stying updates could then be done by downloading just 1 file.
 
-The current version is optimized for OpenLayers 7. For use with OpenLayers 6, select release v1.0.2.
+The current version is optimized for OpenLayers 7 - 10. For use with OpenLayers 6, select release v1.0.2.
 
 ## Examples
 
@@ -149,7 +149,7 @@ Use QGIS as a primary source for layer styling and OGC GeoPackage generation:
 - Within QGIS, use `Processing Toolbox > Package Layers` and select `Save layer styles into package` to generate an OGC GeoPackage which includes a table _layer_styles_ which contains the SLD information.
 - Be aware that if you have layers that use the same source data tables, then `Package Layers` will repeatedly write out all the data for each of these layers.
 - Hence for simplicity and minimum GeoPackage size, try to combine layers using the same source data table using QGIS "Categorized" symbology. ol-sld-styler will display all the separate symbols and labels in a legend and/or layer switcher for such multi-symbol layers. However, bear in mind that ol-layerswitcher/OpenLayers can only switch visibility on/off for a whole layer.
-- Where multiple layers do end up using the same source data table, you can minimize the GeoPackage size by only including one of these layers in the GeoPackage but saving the SLD for the other layers as ".sld" files using QGIS `Layer Properties > Symbology > Style > Save Style... > As SLD Style File`. Such ".sld" files can then be passed to ol-sld-styler to generate additional layers from the same data source table (see [SLD File Load example](Examples.md#sld-file-load-example) for just such an example).
+- Where multiple layers do end up using the same source data table, you can minimize the GeoPackage size by only including one of these layers in the GeoPackage but saving the SLD for the other layers as ".sld" files by opening the Layer Properties dialogue in QGIS and selecting `Symbology > Style > Save Style... > As SLD Style File`. (Alternatively from the layer right-click menu, select: `Export > Save as QGIS Layer Style File > As SLD Style File`). Such ".sld" files can then be passed to ol-sld-styler to generate additional layers from the same data source table (see [SLD File Load example](Examples.md#sld-file-load-example) for just such an example).
 
 When using ol-sld-styler:
 
@@ -200,4 +200,4 @@ Matt Walker's (@walkermatt) [ol-layerswitcher](https://www.npmjs.com/package/ol-
 
 None of this would be possible without the efforts over many years of the [OpenLayers](https://github.com/openlayers/openlayers) developers.
 
-ol-sld-styler was inspired by the [qgis2web](https://github.com/tomchadwin/qgis2web) QGIS plugin.
+ol-sld-styler was inspired by the [qgis2web](https://github.com/tomchadwin/qgis2web) QGIS plugin, but has a different focus of allowing a user to design their own web map layout/tools and (importantly) to be able to quickly update that web map with a single QGIS file export when data and/or styling changes.
