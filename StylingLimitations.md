@@ -1,5 +1,7 @@
 # ol-sld-styler Styling Limitations
 
+_(OUT OF DATE! This page references 1.0.3 of ol-sld-styler, which also used an earlier version of sldreader (0.2.19) and assumed an earlier versions of QGIS 3.x. Since then many limitations have been fixed.)_
+
 If you are using QGIS to design your map layer styling, it is important to understand that there are some limitations on layer styling exported from QGIS to what can be automatically rendered in OpenLayers by ol-sld-styler. Limitations are due to several factors:
 
 - QGIS SLD export (either through `Package Layers` or `Save Style as SLD style file`) is not fully implemented. (QGIS sometimes puts "not implemented yet" comments in the SLD to indicate this).
