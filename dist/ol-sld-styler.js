@@ -504,18 +504,20 @@ function styleVectorLayers(view, layerDefs, sldLayerStyles, sldStylesOverride,
     Object.assign(legendSymbolSizing, legendSymbolOptions);
 
     /**
-     * In QGIS compatiblity mode, URL folder to redirect any SLD SVG paths set to
-     * local disk (as will be found for QGIS system SVGs).
-     * Default value here is QGIS source folders on GitHub (not ideal as slow).
+     * In QGIS compatiblity mode, URL folder to redirect any SLD SVG paths set
+     * to local disk (as will be found for all QGIS-exported system/user or
+     * project SVG files, even if project properties set to relative paths).
+     * Default value here is QGIS source folders on GitHub which should find
+     * QGIS system SVGs (not ideal as slow).
      */
     const svgRedirectFolder = options.qgisCompatibility?.svgRedirectFolder ??
         'https://raw.githubusercontent.com/qgis/QGIS/refs/heads/master/images/svg';
 
     /**
-     * Regular Expression to search SLD for ONLY QGIS SVG system folder '/svg/'
+     * Regular Expression to search SLD for ONLY QGIS SVG folder '/svg/'
      * as a local path, i.e. starting with '/' (linux) or 'C:/' (Windows)
      */
-    const reOnlineResource = new RegExp(/OnlineResource xlink:href=[\\]?"[A-Z]?[:]?\/.*\/svg\//, "gi");
+    const reOnlineResource = new RegExp(/(OnlineResource .*xlink:href=)[\\]?"[A-Z]?[:]?\/.*\/svg\//, "gi");
 
     for (const layerDef of layerDefs) {
         const olLayer = layerDef.olLayer;
@@ -569,11 +571,11 @@ function styleVectorLayers(view, layerDefs, sldLayerStyles, sldStylesOverride,
             continue;
         }
 
-        // Redirect any SLD SVG paths set to local disk (as would be found for
-        // any standard QGIS SVG (system) markers).
+        // Redirect any SLD SVG paths including '/svg/' set to local disk
+        // (as would be found for any QGIS-exported SVG markers files)
         if (options.qgisCompatibility?.enable) {
             let newLayerSld = layerSld.replaceAll(reOnlineResource,
-                `OnlineResource xlink:href="${svgRedirectFolder}/`);
+                `$1"${svgRedirectFolder}/`);
             if (newLayerSld !== layerSld) {
                 layerSld = newLayerSld;
                 if (options.qgisCompatibility.svgRedirectFolder == undefined) {

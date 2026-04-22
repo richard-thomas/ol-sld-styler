@@ -75,7 +75,7 @@ Additional Map Config features (compared to Basic Example) loaded at runtime:
 - `dataLayersConfig` as passed to createAllLayers():
   - `styleName` property: override SLD from GeoPackage layer_styles.
 - `sldStylerOptions` as passed to styleLayers():
-  - `qgisCompatibility`: enabled for QGIS-specific SLD fixes, with `svgRedirectFolder` property set to redirect QGIS system SVG icon paths to relative web path 'qgis_svg' where required system icons have been copied.
+  - `qgisCompatibility`: enabled for QGIS-specific SLD fixes, with `svgRedirectFolder` property set to redirect QGIS SVG icon paths to relative web path 'qgis_svg' where required system icons have been copied.
 
 ## Legend example
 
@@ -161,5 +161,5 @@ Additional Map Config features (compared to above examples) loaded at runtime:
 - `sldStylerOptions` as passed to styleLayers():
   - (only options set in earlier examples)
 
-- [Notable features (PNG marker).sld](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/sld/Notable%20features%20(PNG%20marker).sld): example workaround for QGIS raster (PNG) point marker export limitation - a manual edit of QGIS-exported SLD file to specify (missing) size & displacement of (embedded) PNG marker (original QGIS SLD export in folder "QGIS style export originals")
+- [Notable features (embedded PNG Marker).sld](https://github.com/richard-thomas/ol-sld-styler/blob/main/examples/dist/sld/Notable%20features%20(embedded%20PNG%20Marker).sld): example workaround for QGIS raster (PNG) point marker export limitation - a manual edit of QGIS-exported SLD file to specify (missing) size & displacement of (embedded) PNG marker (original QGIS SLD export in folder "QGIS style export originals")
 - [OS 1st edition (PNG fill).sld](https://github.com/richard-thomas/ol-sld-styler/tree/main/examples/dist/sld/OS%201st%20edition%20(PNG%20fill).sld): example workaround for QGIS raster (PNG) polygon fill export limitation - a manual edit of QGIS-exported SLD file to specify ExternalGraphic PNG filename and size (original QGIS SLD export from layer with RasterFill replaced with SimpleFill in folder "QGIS style export originals")
